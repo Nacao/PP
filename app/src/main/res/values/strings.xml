@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name" translatable="false">PP</string>
+    <string name="app_slogan">Wenn Du keinen hast, war keiner frei.</string>
+    <string name="last_name">Nachname</string>
+    <string name="first_name">Vorname</string>
+    <string name="password">Passwort</string>
+    <string name="stay_logged">Eingeloggt bleiben</string>
+    <string name="work_place">Dienstort</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Registrieren</string>
+    <string-array name="employment_places">
+        <item>Bad Homburg</item>
+        <item>Frankfurt am Main</item>
+        <item>Dortmund</item>
+    </string-array>
+</resources>

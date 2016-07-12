@@ -9,13 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.redone13.pp.registerActivity"
-    android:background="#FFB9B9B9">
+    android:background="#2b2b2b">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="@string/last_name"
+        android:textColorHint="#ffffff"
         android:textSize="24sp"
         android:paddingLeft="10dp"
         android:id="@+id/et_lastname"
@@ -27,6 +28,7 @@
         android:layout_marginTop="10dp"
         android:inputType="textPersonName"
         android:hint="@string/first_name"
+        android:textColorHint="#ffffff"
         android:textSize="24sp"
         android:paddingLeft="10dp"
         android:id="@+id/et_firstname"
@@ -38,6 +40,7 @@
         android:layout_marginTop="10dp"
         android:inputType="textEmailAddress"
         android:hint="email"
+        android:textColorHint="#ffffff"
         android:textSize="24sp"
         android:paddingLeft="10dp"
         android:layout_below="@id/et_email"
@@ -48,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Wo arbeitest du?"
+        android:textColorHint="#ffffff"
         android:textSize="24sp"
         android:paddingLeft="10dp"
         android:id="@+id/et_workplace"

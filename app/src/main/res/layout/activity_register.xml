@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.redone13.pp.registerActivity"
+    tools:context=".RegisterActivity"
     android:background="#2b2b2b">
 
     <EditText
@@ -43,8 +43,21 @@
         android:textColorHint="#ffffff"
         android:textSize="24sp"
         android:paddingLeft="10dp"
-        android:layout_below="@id/et_email"
+        android:id="@id/et_email"
         android:background="@drawable/rounded_edittext" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:textColorHint="#ffffff"
+        android:textSize="24sp"
+        android:paddingLeft="10dp"
+        android:id="@+id/et_password"
+        android:background="@drawable/rounded_edittext"
+        />
 
     <EditText
         android:layout_width="match_parent"
@@ -79,5 +92,21 @@
         </Spinner>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:hint="Register"
+            android:textColor="#11609c"
+            android:id="@+id/b_register"
+            android:textSize="24sp"/>
+    </RelativeLayout>
 
 </LinearLayout>

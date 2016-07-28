@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
-    private static final String REGISTER_REQUEST_URL = "http://10.127.127.1/parkplatz/Register.php";
+    private static final String REGISTER_REQUEST_URL = "http://10.127.127.1/parkplatz/dbRegister.php";
     //public static final String REGISTER_REQUEST_URL = "http://www.redone13.net16.net/Register.php";
     private Map<String, String> params;
 

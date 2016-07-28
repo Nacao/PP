@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterActivity extends Activity {
-
+    public static final String TAG = RegisterActivity.class.getSimpleName();
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
 
@@ -63,35 +64,56 @@ public class RegisterActivity extends Activity {
                 final String email = et_email.getText().toString();
                 final String password = et_password.getText().toString();
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
+                if(!last_name.matches("") && !first_name.matches("") && !email.matches("") && !password.matches("")) {
+                    Log.d(TAG, "después del if, antes del metodo");
 
-                            if(success) {
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                RegisterActivity.this.startActivity(intent);
-                            }
-                            else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Register Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
-                            }
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d(TAG, "dentro del metodo, antes del try");
+                            Log.d(TAG, response);
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+                                Integer error_code = jsonResponse.getInt("code");
+                                Log.d(TAG, String.valueOf(success));
+                                Log.d(TAG, String.valueOf(error_code));
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                                if(success && error_code == 0) {
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    RegisterActivity.this.startActivity(intent);
+                                }
+                                else if (!success && error_code == -1) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("The email account: " + email + " is already " +
+                                            "registered. Please try again with a different email account.")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("Register Failed")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
                 };
 
                 RegisterRequest registerRequest = new RegisterRequest(last_name, first_name, email, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
-            }
-        });
+            }else {
+                    AlertDialog.Builder emptyValuesAlert = new AlertDialog.Builder(RegisterActivity.this);
+                    emptyValuesAlert.setMessage("One of the entry values is empty. Please verify them again!")
+                            .setNegativeButton("Retry", null)
+                            .create()
+                            .show();
+                }
+        }});
     }
 }

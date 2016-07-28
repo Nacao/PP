@@ -10,7 +10,5 @@
     <string name="button_register">Registrieren</string>
     <string-array name="employment_places">
         <item>Bad Homburg</item>
-        <item>Frankfurt am Main</item>
-        <item>Dortmund</item>
     </string-array>
 </resources>

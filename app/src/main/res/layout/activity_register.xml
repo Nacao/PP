@@ -19,6 +19,7 @@
         android:textColorHint="#ffffff"
         android:textSize="24sp"
         android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:id="@+id/et_lastname"
         android:background="@drawable/rounded_edittext"/>
 
@@ -51,24 +52,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="@string/password"
         android:textColorHint="#ffffff"
         android:textSize="24sp"
         android:paddingLeft="10dp"
         android:id="@+id/et_password"
         android:background="@drawable/rounded_edittext"
         />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Wo arbeitest du?"
-        android:textColorHint="#ffffff"
-        android:textSize="24sp"
-        android:paddingLeft="10dp"
-        android:id="@+id/et_workplace"
-        android:background="@drawable/rounded_edittext"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,8 +78,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:id="@+id/sp_employment_place" >
         </Spinner>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fixed_parking"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:text="Hast Du einen festen Parkplatz?"/>
+
+        <CheckBox
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/cb_fixed_parking"
+            android:layout_marginLeft="7sp"
+            android:layout_marginStart="7sp"/>
+            <!-- android:background="#c8c8c8" />-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_parking_name"
+            android:inputType="textAutoComplete"
+            android:hint="Welche Nummer hat dein Parkplatz?*"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_first_candidate"
+            android:inputType="textAutoComplete"
+            android:hint="1. Anwärter auf deinen freien Parkplatz (optional)"
+            android:textSize="14sp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_second_candidate"
+            android:inputType="textAutoComplete"
+            android:hint="2. Anwärter auf deinen freien Parkplatz (optional)"
+            android:textSize="14sp"/>
 
     </LinearLayout>
 

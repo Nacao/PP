@@ -8,8 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".RegisterActivity"
-    android:background="#2b2b2b">
+    tools:context=".RegisterActivity">
 
     <EditText
         android:layout_width="match_parent"

@@ -3,11 +3,12 @@
     <string name="app_slogan">Wenn Du keinen hast, war keiner frei.</string>
     <string name="last_name">Nachname</string>
     <string name="first_name">Vorname</string>
-    <string name="password">Passwort</string>
+    <string name="email">Firmen E-Mail-Adresse</string>
+    <string name="password">******</string>
     <string name="stay_logged">Eingeloggt bleiben</string>
     <string name="work_place">Dienstort</string>
     <string name="button_login">Login</string>
-    <string name="button_register">Registrieren</string>
+    <string name="button_register">Jetzt Registrieren</string>
     <string-array name="employment_places">
         <item>Bad Homburg</item>
     </string-array>

@@ -1,0 +1,74 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commit each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# Changes to be committed:
+#	new file:   app/src/main/java/com/redone13/pp/Employee.java
+#	new file:   app/src/main/java/com/redone13/pp/FragmentOne.java
+#	new file:   app/src/main/java/com/redone13/pp/TestActivity.java
+#	new file:   app/src/main/res/drawable/ic_directions_car_black_24px.xml
+#	new file:   app/src/main/res/drawable/ic_directions_car_white_24px.xml
+#	new file:   app/src/main/res/drawable/ic_more_horiz_black_24px.xml
+#	new file:   app/src/main/res/drawable/ic_more_horiz_white_24px.xml
+#	new file:   app/src/main/res/drawable/ic_user_black_24px.xml
+#	new file:   app/src/main/res/drawable/ic_user_white_24px.xml
+#	new file:   app/src/main/res/layout/activity_test.xml
+#	new file:   app/src/main/res/layout/con_fragment.xml
+#	new file:   app/src/main/res/layout/fragment_container.xml
+#	new file:   app/src/main/res/menu/menu_test.xml
+#	new file:   app/src/main/res/values-v21/styles.xml
+#	new file:   app/src/main/res/values/values.xml
+#
+# Changes not staged for commit:
+#	modified:   app/build.gradle
+#	modified:   app/src/main/AndroidManifest.xml
+#	modified:   app/src/main/java/com/redone13/pp/Employee.java
+#	modified:   app/src/main/java/com/redone13/pp/FragmentOne.java
+#	modified:   app/src/main/java/com/redone13/pp/LoginRequest.java
+#	modified:   app/src/main/java/com/redone13/pp/MainActivity.java
+#	modified:   app/src/main/java/com/redone13/pp/TestActivity.java
+#	modified:   app/src/main/java/com/redone13/pp/loginActivity.java
+#	modified:   app/src/main/java/com/redone13/pp/registerActivity.java
+#	modified:   app/src/main/java/com/redone13/pp/registerRequest.java
+#	modified:   app/src/main/res/drawable/aia_logo.png
+#	modified:   app/src/main/res/layout/activity_login.xml
+#	modified:   app/src/main/res/layout/activity_main.xml
+#	modified:   app/src/main/res/layout/activity_register.xml
+#	modified:   app/src/main/res/layout/activity_test.xml
+#	modified:   app/src/main/res/layout/con_fragment.xml
+#	modified:   app/src/main/res/menu/menu_test.xml
+#	modified:   app/src/main/res/values-v21/styles.xml
+#	modified:   app/src/main/res/values/colors.xml
+#	modified:   app/src/main/res/values/strings.xml
+#	modified:   app/src/main/res/values/styles.xml
+#	modified:   app/src/main/res/values/values.xml
+#
+# Untracked files:
+#	.gitignore
+#	.idea/.name
+#	.idea/compiler.xml
+#	.idea/copyright/
+#	.idea/dictionaries/
+#	.idea/encodings.xml
+#	.idea/gradle.xml
+#	.idea/inspectionProfiles/
+#	.idea/misc.xml
+#	.idea/modules.xml
+#	.idea/runConfigurations.xml
+#	app/src/main/res/drawable-hdpi/
+#	app/src/main/res/drawable-ldpi/
+#	app/src/main/res/drawable-mdpi/
+#	app/src/main/res/drawable-xhdpi/
+#	app/src/main/res/drawable/aia_logo_backup.png
+#	build.gradle
+#	gradle.properties
+#	gradle/
+#	gradlew
+#	gradlew.bat
+#	settings.gradle
+#
+

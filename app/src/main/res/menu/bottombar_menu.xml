@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/bottomBarUserData"
+        android:icon="@drawable/ic_user_white_24px"
+        android:title="@string/bb_title_personal_data"
+        />
+
+    <item
+        android:id="@+id/bottomBarParkingPlace"
+        android:icon="@drawable/ic_directions_car_white_24px"
+        android:title="@string/bb_title_parking_place"
+        />
+
+    <item
+        android:id="@+id/bottomBarMore"
+        android:icon="@drawable/ic_more_horiz_white_24px"
+        android:title="@string/bb_title_more"
+        />
+
 </menu>

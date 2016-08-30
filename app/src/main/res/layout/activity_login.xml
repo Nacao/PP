@@ -120,6 +120,7 @@
                 android:textStyle="bold"
                 android:text="@string/button_register_now"
                 android:id="@+id/b_register" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -8,8 +8,19 @@
     <string name="stay_logged">Eingeloggt bleiben</string>
     <string name="work_place">Dienstort</string>
     <string name="button_login">Login</string>
-    <string name="button_register">Jetzt Registrieren</string>
+    <string name="button_register_now">Jetzt Registrieren</string>
+    <string name="button_register">Registrieren</string>
     <string-array name="employment_places">
         <item>Bad Homburg</item>
     </string-array>
+    <string name="title_activity_parkplatz">ParkplatzActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_test">TestActivity</string>
+
+    <!-- NAVIGATION BAR -->
+    <string name="bb_title_personal_data">Meine Daten</string>
+    <string name="bb_title_parking_place">Mein Parkplatz</string>
+    <string name="bb_title_more">Mehr</string>
+
 </resources>

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.redone13.pp.R;
 
 public class ParkingPlaceFragment extends Fragment {
+    public static final String PARKING_PLACE_FRAGMENT = "parking_place_fragment";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

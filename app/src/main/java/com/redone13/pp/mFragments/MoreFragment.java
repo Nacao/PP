@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.redone13.pp.R;
 
 public class MoreFragment extends Fragment {
+    public static final String MORE_FRAGMENT = "more_fragment";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -36,4 +36,21 @@
         android:layout_alignParentStart="true"
         android:textSize="18sp"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"/>
+
 </RelativeLayout>

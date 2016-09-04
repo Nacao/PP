@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.redone13.pp.mFragments.EmployeeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,8 +105,9 @@ public class LoginActivity extends AppCompatActivity {
                             editor.commit();
                         }
 
-                        Intent toMainActivity = new Intent(LoginActivity.this, MainActivity.class);
-                        LoginActivity.this.startActivity(toMainActivity);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra(EmployeeFragment.EMPLOYEE_FRAGMENT_EMAIL, mEmail.getText().toString());
+                        LoginActivity.this.startActivity(intent);
                     }else {
                         AlertDialog.Builder dialogNotConnected = new AlertDialog.Builder(LoginActivity.this);
                         dialogNotConnected.setMessage("Password or email invalid. Please verify them")

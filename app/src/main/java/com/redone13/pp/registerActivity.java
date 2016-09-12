@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,38 +24,41 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = RegisterActivity.class.getSimpleName();
     public static final String REDLEE = "rollal";
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
 
+    @BindView(R.id.et_lastname) EditText mLastName;
+    @BindView(R.id.et_firstname) EditText mFirstName;
+    @BindView(R.id.et_email) EditText mEmail;
+    @BindView(R.id.et_password) EditText mPassword;
+    @BindView(R.id.b_register) Button mRegisterButton;
+    @BindView(R.id.cb_fixed_parking) CheckBox cb_fixed_parking;
+    @BindView(R.id.et_parking_name) EditText et_parking_id;
+    @BindView(R.id.et_first_candidate) EditText mFirstCandidateEmail;
+    @BindView(R.id.et_second_candidate) EditText mSecondCandidateEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        final EditText et_last_name = (EditText) findViewById(R.id.et_lastname);
-        final EditText et_first_name = (EditText) findViewById(R.id.et_firstname);
-        final EditText et_email = (EditText) findViewById(R.id.et_email);
-        final EditText et_password = (EditText) findViewById(R.id.et_password);
-        final Button b_register = (Button) findViewById(R.id.b_register);
-        final CheckBox cb_fixed_parking = (CheckBox) findViewById(R.id.cb_fixed_parking);
-        final EditText et_parking_name = (EditText) findViewById(R.id.et_parking_name);
-        final EditText et_first_candidate = (EditText) findViewById(R.id.et_first_candidate);
-        final EditText et_second_canditate = (EditText) findViewById(R.id.et_second_candidate);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        ButterKnife.bind(this);
 
         // Restore preferences
         SharedPreferences settings = getSharedPreferences(REDLEE, 0);
-        et_email.setText(settings.getString("user_email", null));
+        mEmail.setText(settings.getString("user_email", null));
 
         // Set fixed parking check box as false
         cb_fixed_parking.setChecked(false);
 
         // Make all parking information invisible
-        et_parking_name.setVisibility(View.INVISIBLE);
-        et_first_candidate.setVisibility(View.INVISIBLE);
-        et_second_canditate.setVisibility(View.INVISIBLE);
+        setExtendedRegistrationVisibility(View.INVISIBLE);
 
         spinner = (Spinner)findViewById(R.id.sp_employment_place);
         adapter = ArrayAdapter.createFromResource(this,R.array.employment_places,
@@ -75,54 +79,39 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        cb_fixed_parking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(cb_fixed_parking.isChecked()) {
-                    // Make all parking information visible
-                    et_parking_name.setVisibility(View.VISIBLE);
-                    et_first_candidate.setVisibility(View.VISIBLE);
-                    et_second_canditate.setVisibility(View.VISIBLE);
-                }else {
-                    // Make all parking information invisible
-                    et_parking_name.setVisibility(View.INVISIBLE);
-                    et_first_candidate.setVisibility(View.INVISIBLE);
-                    et_second_canditate.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+        enableExtendedRegistration();
 
-        b_register.setOnClickListener(new View.OnClickListener() {
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String last_name = et_last_name.getText().toString();
-                final String first_name = et_first_name.getText().toString();
-                final String email = et_email.getText().toString();
-                final String password = et_password.getText().toString();
-                final String parking_name = et_parking_name.getText().toString();
+                final String last_name = mLastName.getText().toString();
+                final String first_name = mFirstName.getText().toString();
+                final String email = mEmail.getText().toString();
+                final String password = mPassword.getText().toString();
+                final String ownsParkingPlace = cb_fixed_parking.isChecked() + "";
+                final String parking_id = et_parking_id.getText().toString();
+                final String firstCandidateEmail = mFirstCandidateEmail.getText().toString();
+                final String secondCandidateEmail = mSecondCandidateEmail.getText().toString();
 
                 if(!last_name.matches("") && !first_name.matches("") && !email.matches("") && !password.matches("")) {
-                    Log.d(TAG, "después del if, antes del metodo");
-
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.d(TAG, "dentro del metodo, antes del try");
-                            Log.d(TAG, response);
+                            Log.d(TAG, "jsonResponse: " + response);
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
-                                Integer error_code = jsonResponse.getInt("code");
+                                Integer err_code = jsonResponse.getInt("err_code");
                                 String err_msg = jsonResponse.getString("err_msg");
                                 Log.d(TAG, String.valueOf(success));
-                                Log.d(TAG, String.valueOf(error_code));
+                                Log.d(TAG, String.valueOf(err_code));
                                 Log.d(TAG, err_msg);
 
-                                if(success && error_code == 0) {
+                                if(success && err_code == 0) {
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     RegisterActivity.this.startActivity(intent);
                                 }
-                                else if (!success && error_code == -1) {
+                                else if (!success && err_code == -1) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                     builder.setMessage("The email account: " + email + " is already " +
                                             "registered. Please try again with a different email account.")
@@ -143,7 +132,8 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                 };
 
-                RegisterRequest registerRequest = new RegisterRequest(last_name, first_name, email, password, parking_name, responseListener);
+                RegisterRequest registerRequest = new RegisterRequest(last_name, first_name, email,
+                        password, ownsParkingPlace, parking_id, firstCandidateEmail, secondCandidateEmail, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }else {
@@ -155,4 +145,24 @@ public class RegisterActivity extends AppCompatActivity {
                 }
         }});
     }
+
+    private void enableExtendedRegistration() {
+        cb_fixed_parking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(cb_fixed_parking.isChecked()) {
+                    setExtendedRegistrationVisibility(View.VISIBLE);
+                }else {
+                    setExtendedRegistrationVisibility(View.INVISIBLE);
+                }
+            }
+        });
+    }
+
+    private void setExtendedRegistrationVisibility(int visibility) {
+        et_parking_id.setVisibility(visibility);
+        mFirstCandidateEmail.setVisibility(visibility);
+        mSecondCandidateEmail.setVisibility(visibility);
+    }
+
 }

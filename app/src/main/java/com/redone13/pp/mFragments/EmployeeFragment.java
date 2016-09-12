@@ -1,6 +1,5 @@
 package com.redone13.pp.mFragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.redone13.pp.Employee;
-import com.redone13.pp.EmployeeRequest;
+import com.redone13.pp.VolleyRequests.EmployeeRequest;
 import com.redone13.pp.R;
 
 import org.json.JSONException;
@@ -31,15 +30,17 @@ public class EmployeeFragment extends Fragment {
     private Employee mEmployee;
     private String mEmail;
 
-    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.progressBarLastName) ProgressBar progressBarLastName;
+    @BindView(R.id.progressBarFirstName) ProgressBar progressBarFirstName;
     @BindView(R.id.employeeFragmentLastName) TextView lastName;
     @BindView(R.id.employeeFragmentFirstName) TextView firstName;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mEmail = getArguments().getString(EMPLOYEE_FRAGMENT_EMAIL);
         View view = inflater.inflate(R.layout.fragment_employee, container, false);
+        mEmail = getArguments().getString(EMPLOYEE_FRAGMENT_EMAIL);
+        getActivity().setTitle("User Details");
         ButterKnife.bind(this, view);
 
         getEmployeeFullName();
@@ -48,7 +49,6 @@ public class EmployeeFragment extends Fragment {
     }
 
     private void getEmployeeFullName() {
-        progressBar.setVisibility(View.VISIBLE);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -67,10 +67,13 @@ public class EmployeeFragment extends Fragment {
         EmployeeRequest employeeRequest = new EmployeeRequest(mEmail, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         queue.add(employeeRequest);
-        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void updateDisplay() {
+        progressBarLastName.setVisibility(View.INVISIBLE);
+        progressBarFirstName.setVisibility(View.INVISIBLE);
+        lastName.setVisibility(View.VISIBLE);
+        firstName.setVisibility(View.VISIBLE);
         lastName.setText(mEmployee.getLastName());
         firstName.setText(mEmployee.getFirstName());
     }

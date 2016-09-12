@@ -1,12 +1,19 @@
 package com.redone13.pp;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -38,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
 
         restorePreferences();
@@ -77,7 +84,16 @@ public class LoginActivity extends AppCompatActivity {
     private void startRegistration() {
         Intent registerIntent = new Intent(this, RegisterActivity.class);
         registerIntent.putExtra("email", mEmail.getText().toString());
-        startActivity(registerIntent);
+        if(Build.VERSION.SDK_INT >= 21) {
+            Slide slide = new Slide();
+            slide.setDuration(3000);
+            slide.setMode(Visibility.MODE_OUT);
+            getWindow().setExitTransition(slide);
+            startActivity(registerIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        }else {
+            startActivity(registerIntent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
     private void restorePreferences() {

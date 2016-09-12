@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mBottomBar = BottomBar.attach(MainActivity.this, savedInstanceState);
-        Log.d(TAG, "Dónde estoyyyyyyyy: " + mBottomBar.getCurrentTabPosition());
         mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
 
             @Override

@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parking Place"
+        android:text="dein Parkplatz ist:"
         android:layout_gravity="center_horizontal"
-        android:textSize="24sp"/>
+        android:textSize="24sp"
+        android:id="@+id/textView2"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
 
-    <EditText
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@android:drawable/sym_action_email"
+        app:backgroundTint="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="07"
+        android:id="@+id/parkingPlaceId"
+        android:textSize="80sp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Freigeben"
+        android:id="@+id/releaseParkingPlace"
+        android:textSize="18sp"
+        android:layout_below="@+id/parkingPlaceId"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

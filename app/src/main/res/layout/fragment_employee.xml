@@ -21,13 +21,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="----"
+        android:text="---"
         android:id="@+id/employeeFragmentLastName"
         android:layout_alignBottom="@+id/textView"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView"
         android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"/>
+        android:layout_marginStart="30dp"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,17 +45,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="----"
+        android:text="---"
         android:id="@+id/employeeFragmentFirstName"
         android:layout_alignBottom="@+id/textView3"
+        android:layout_alignLeft="@+id/employeeFragmentLastName"
+        android:layout_alignStart="@+id/employeeFragmentLastName"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarLastName"
+        android:layout_alignTop="@+id/employeeFragmentLastName"
         android:layout_alignLeft="@+id/employeeFragmentLastName"
         android:layout_alignStart="@+id/employeeFragmentLastName"/>
 
     <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:id="@+id/progressBarFirstName"
+        android:layout_alignTop="@+id/employeeFragmentFirstName"
+        android:layout_alignLeft="@+id/employeeFragmentFirstName"
+        android:layout_alignStart="@+id/employeeFragmentFirstName"/>
 
 </RelativeLayout>

@@ -12,10 +12,10 @@ public class ParkingRequest extends StringRequest {
     private static final String PARKING_ID_REQUEST = "http://redone13.net16.net/ParkingRequest.php";
     private Map<String, String> params;
 
-    public ParkingRequest(String employee_id, Response.Listener<String> listener){
+    public ParkingRequest(String employee_email, Response.Listener<String> listener){
         super(Request.Method.POST, PARKING_ID_REQUEST, listener, null);
         params = new HashMap<>();
-        params.put("employee_id", employee_id);
+        params.put("employee_email", employee_email);
     }
 
     @Override

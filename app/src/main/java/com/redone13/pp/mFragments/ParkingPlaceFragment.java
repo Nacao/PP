@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.redone13.pp.MainActivity;
 import com.redone13.pp.Parking;
 import com.redone13.pp.R;
 import com.redone13.pp.VolleyRequests.ParkingRequest;
@@ -30,12 +32,16 @@ public class ParkingPlaceFragment extends Fragment {
 
     @BindView(R.id.parkingPlaceId) TextView mParkingPlaceId;
     @BindView(R.id.releaseParkingPlace) Button mReleaseParkingPlace;
+    @BindView(R.id.progressBarParkingPlace) ProgressBar mProgressBarParkingPlace;
+
+    private String mEmployeeEmail;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_parking_place, container, false);
         getActivity().setTitle("Parking Details");
+        mEmployeeEmail = getArguments().getString(MainActivity.EMPLOYEE_EMAIL);
         ButterKnife.bind(this, view);
 
         getEmployeeParkingPlaceId();
@@ -47,9 +53,9 @@ public class ParkingPlaceFragment extends Fragment {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i(TAG, "jsonObject: " + response);
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
+                    Log.i(TAG, "jsonResponse" + jsonResponse);
                     Boolean success = jsonResponse.getBoolean("success");
                     if(success) {
                         Parking mParking = getParkingDetails(jsonResponse);
@@ -67,7 +73,7 @@ public class ParkingPlaceFragment extends Fragment {
     }
 
     private void sendParkingRequest(Response.Listener<String> responseListener) {
-        ParkingRequest parkingRequest = new ParkingRequest("1", responseListener);
+        ParkingRequest parkingRequest = new ParkingRequest(mEmployeeEmail, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         queue.add(parkingRequest);
     }
@@ -82,12 +88,16 @@ public class ParkingPlaceFragment extends Fragment {
     }
 
     private void updateDisplay() {
-        mReleaseParkingPlace.setVisibility(View.INVISIBLE);
+        mProgressBarParkingPlace.setVisibility(View.INVISIBLE);
+        mParkingPlaceId.setVisibility(View.VISIBLE);
         mParkingPlaceId.setTextSize(16f);
         mParkingPlaceId.setText("Sorry, du hast heute kein Parkplatz");
     }
 
     private void updateDisplay(int id) {
+        mProgressBarParkingPlace.setVisibility(View.INVISIBLE);
+        mParkingPlaceId.setVisibility(View.VISIBLE);
+        mReleaseParkingPlace.setVisibility(View.VISIBLE);
         String stringId = String.format("%02d", id);
         mParkingPlaceId.setText(stringId);
     }

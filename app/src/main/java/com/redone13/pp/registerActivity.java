@@ -1,11 +1,14 @@
 package com.redone13.pp;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -44,11 +47,19 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.et_second_candidate) EditText mSecondCandidateEmail;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
+
+        setupTransition();
 
         // Restore preferences
         SharedPreferences settings = getSharedPreferences(REDLEE, 0);
@@ -144,6 +155,12 @@ public class RegisterActivity extends AppCompatActivity {
                             .show();
                 }
         }});
+    }
+
+    private void setupTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Slide(Gravity.END));
+        }
     }
 
     private void enableExtendedRegistration() {

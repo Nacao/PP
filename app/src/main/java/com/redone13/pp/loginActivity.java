@@ -7,11 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
-import android.transition.Fade;
 import android.transition.Slide;
-import android.transition.Visibility;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -48,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
 
+        setupTransitions();
         restorePreferences();
 
         mStayLoggedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -81,15 +80,19 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void setupTransitions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setExitTransition(new Slide(Gravity.START));
+        }
+    }
+
     private void startRegistration() {
         Intent registerIntent = new Intent(this, RegisterActivity.class);
         registerIntent.putExtra("email", mEmail.getText().toString());
-        if(Build.VERSION.SDK_INT >= 21) {
-            Slide slide = new Slide();
-            slide.setDuration(3000);
-            slide.setMode(Visibility.MODE_OUT);
-            getWindow().setExitTransition(slide);
-            startActivity(registerIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    LoginActivity.this);
+            startActivity(registerIntent, options.toBundle());
         }else {
             startActivity(registerIntent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

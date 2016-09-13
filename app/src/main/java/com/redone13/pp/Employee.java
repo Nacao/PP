@@ -1,6 +1,7 @@
 package com.redone13.pp;
 
 public class Employee {
+    private int mId;
     private String mLastName;
     private String mFirstName;
     private String mEmail;
@@ -15,6 +16,14 @@ public class Employee {
         mFirstName = firstName;
         mEmail = email;
         mPassword = password;
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
     }
 
     public String getLastName() {

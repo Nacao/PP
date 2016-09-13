@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
+    public static final String EMPLOYEE_EMAIL = "employee_email";
 
     private BottomBar mBottomBar;
     private EmployeeFragment mEmployeeFragment;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 findFragmentByTag(ParkingPlaceFragment.PARKING_PLACE_FRAGMENT);
         if(savedParkingFragment == null) {
             mParkingPlaceFragment = new ParkingPlaceFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(MainActivity.EMPLOYEE_EMAIL, mEmployee.getEmail());
+            mParkingPlaceFragment.setArguments(bundle);
         }else {
             mParkingPlaceFragment = savedParkingFragment;
         }

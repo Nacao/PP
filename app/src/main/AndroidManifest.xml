@@ -13,7 +13,6 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -21,6 +20,25 @@
         <activity android:name=".MainActivity"
                   android:configChanges="orientation|screenSize">
         </activity>
+
+        <!-- [START firebase_service] -->
+        <service
+            android:name=".fcm.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
+
+        <!-- [START firebase_iid_service] -->
+        <service
+            android:name=".fcm.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END firebase_iid_service] -->
+
     </application>
 
 </manifest>

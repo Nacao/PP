@@ -11,17 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.redone13.pp.mFragments.EmployeeFragment;
 import com.redone13.pp.mFragments.MoreFragment;
 import com.redone13.pp.mFragments.ParkingPlaceFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        FirebaseInstanceId.getInstance().getToken();
 
         mEmployee = new Employee();
 

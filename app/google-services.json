@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "478542569717",
+    "firebase_url": "https://testpp-6cad3.firebaseio.com",
+    "project_id": "testpp-6cad3",
+    "storage_bucket": "testpp-6cad3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478542569717:android:7143526d61981007",
+        "android_client_info": {
+          "package_name": "com.redone13.pp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478542569717-bo64v7m638cfcrvui92qacu8a2t405gg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKkkq4iPkQyYVoqzThSLwnFmSi8TRhIvw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -35,6 +35,7 @@ public class ParkingPlaceFragment extends Fragment {
     @BindView(R.id.progressBarParkingPlace) ProgressBar mProgressBarParkingPlace;
 
     private String mEmployeeEmail;
+    private Parking mParking;
 
     @Nullable
     @Override
@@ -43,6 +44,7 @@ public class ParkingPlaceFragment extends Fragment {
         getActivity().setTitle("Parking Details");
         mEmployeeEmail = getArguments().getString(MainActivity.EMPLOYEE_EMAIL);
         ButterKnife.bind(this, view);
+        mParking = new Parking();
 
         getEmployeeParkingPlaceId();
 
@@ -58,11 +60,9 @@ public class ParkingPlaceFragment extends Fragment {
                     Log.i(TAG, "jsonResponse" + jsonResponse);
                     Boolean success = jsonResponse.getBoolean("success");
                     if(success) {
-                        Parking mParking = getParkingDetails(jsonResponse);
-                        updateDisplay(mParking.getId());
-                    }else {
-                        updateDisplay();
+                        mParking = getParkingDetails(jsonResponse);
                     }
+                    updateDisplay();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -90,15 +90,14 @@ public class ParkingPlaceFragment extends Fragment {
     private void updateDisplay() {
         mProgressBarParkingPlace.setVisibility(View.INVISIBLE);
         mParkingPlaceId.setVisibility(View.VISIBLE);
-        mParkingPlaceId.setTextSize(16f);
-        mParkingPlaceId.setText("Sorry, du hast heute kein Parkplatz");
+        if(mParking != null) {
+            mReleaseParkingPlace.setVisibility(View.VISIBLE);
+            String stringId = String.format("%02d", mParking.getId());
+            mParkingPlaceId.setText(stringId);
+        }else {
+            mParkingPlaceId.setTextSize(16f);
+            mParkingPlaceId.setText(R.string.no_parking_place);
+        }
     }
 
-    private void updateDisplay(int id) {
-        mProgressBarParkingPlace.setVisibility(View.INVISIBLE);
-        mParkingPlaceId.setVisibility(View.VISIBLE);
-        mReleaseParkingPlace.setVisibility(View.VISIBLE);
-        String stringId = String.format("%02d", id);
-        mParkingPlaceId.setText(stringId);
-    }
 }

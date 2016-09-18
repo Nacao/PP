@@ -23,4 +23,7 @@
     <string name="bb_title_parking_place">Mein Parkplatz</string>
     <string name="bb_title_more">Mehr</string>
 
+    <!-- PARKING PLACE FRAGMENT -->
+    <string name="no_parking_place">Sorry, du hast heute kein Parkplatz></string>
+
 </resources>

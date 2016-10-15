@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenRegister extends StringRequest {
-    private static final String TOKEN_REGISTER = "http://10.127.127.1/parkplatz/db/TokenRegister.php";
-    //private static final String TOKEN_REGISTER = "http://redone13.net16.net/ParkingRequest.php";
+    //private static final String TOKEN_REGISTER = "http://10.127.127.1/parkplatz/db/TokenRegister.php";
+    private static final String TOKEN_REGISTER = "http://redone13.net16.net/TokenRegister.php";
     private Map<String, String> params;
 
     public TokenRegister(String employee_email, String token, Response.Listener<String> listener){

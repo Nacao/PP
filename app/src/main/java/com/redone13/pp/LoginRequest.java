@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginRequest extends StringRequest {
-    //private static final String LOGIN_REQUEST_URL = "http://10.127.127.1/parkplatz/dbLogin.php";
+    //private static final String LOGIN_REQUEST_URL = "http://10.127.127.1/parkplatz/db/Login.php";
     private static final String LOGIN_REQUEST_URL = "http://redone13.net16.net/dbLogin.php";
     private Map<String, String> params;
 

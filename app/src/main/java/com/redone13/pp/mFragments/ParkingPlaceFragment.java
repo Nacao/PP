@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,12 +20,14 @@ import com.redone13.pp.MainActivity;
 import com.redone13.pp.Parking;
 import com.redone13.pp.R;
 import com.redone13.pp.VolleyRequests.ParkingRequest;
+import com.redone13.pp.VolleyRequests.ReleaseParkingRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ParkingPlaceFragment extends Fragment {
     private static final String TAG = ParkingPlaceFragment.class.getSimpleName();
@@ -49,6 +52,29 @@ public class ParkingPlaceFragment extends Fragment {
         getEmployeeParkingPlaceId();
 
         return view;
+    }
+
+    @OnClick(R.id.releaseParkingPlace)
+    public void onReleaseParkingPlaceClicked(View view) {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.i("TAG", jsonObject.toString());
+                    if(jsonObject.getBoolean("success")) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Fairy Tail", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        ReleaseParkingRequest releaseParkingRequest = new ReleaseParkingRequest(mEmployeeEmail, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        queue.add(releaseParkingRequest);
+
     }
 
     private void getEmployeeParkingPlaceId() {

@@ -1,8 +1,8 @@
 package com.redone13.pp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,13 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.redone13.pp.VolleyRequests.TokenRegister;
+import com.redone13.pp.fcm.FirebaseInstanceIDService;
 import com.redone13.pp.mFragments.EmployeeFragment;
 import com.redone13.pp.mFragments.MoreFragment;
 import com.redone13.pp.mFragments.ParkingPlaceFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseMessaging.getInstance().subscribeToTopic("news");
-        FirebaseInstanceId.getInstance().getToken();
 
         mEmployee = new Employee();
 
@@ -44,17 +51,21 @@ public class MainActivity extends AppCompatActivity {
         mEmployee.setEmail(intent.getStringExtra(EmployeeFragment.EMPLOYEE_FRAGMENT_EMAIL));
         Toast.makeText(MainActivity.this, mEmployee.getEmail(), Toast.LENGTH_SHORT).show();
 
+        if(getStateUpdateTokenFCM()) {
+            String token = FirebaseInstanceId.getInstance().getToken();
+            Log.d(TAG, token);
+            // Update token for user in db
+            registerToken(mEmployee.getEmail(), token);
+            updateTokenFCM(false);
+        }
+
         EmployeeFragment savedFragment = (EmployeeFragment) getSupportFragmentManager().
                 findFragmentByTag(EmployeeFragment.EMPLOYEE_FRAGMENT);
         if(savedFragment == null) {
             mEmployeeFragment = new EmployeeFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
             Bundle bundle = new Bundle();
             bundle.putString(EmployeeFragment.EMPLOYEE_FRAGMENT_EMAIL, mEmployee.getEmail());
             mEmployeeFragment.setArguments(bundle);
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.placeHolder, mEmployeeFragment, EmployeeFragment.EMPLOYEE_FRAGMENT);
-            fragmentTransaction.commit();
         }else {
             mEmployeeFragment = savedFragment;
         }
@@ -63,9 +74,13 @@ public class MainActivity extends AppCompatActivity {
                 findFragmentByTag(ParkingPlaceFragment.PARKING_PLACE_FRAGMENT);
         if(savedParkingFragment == null) {
             mParkingPlaceFragment = new ParkingPlaceFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             Bundle bundle = new Bundle();
             bundle.putString(MainActivity.EMPLOYEE_EMAIL, mEmployee.getEmail());
             mParkingPlaceFragment.setArguments(bundle);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.placeHolder, mParkingPlaceFragment, ParkingPlaceFragment.PARKING_PLACE_FRAGMENT);
+            fragmentTransaction.commit();
         }else {
             mParkingPlaceFragment = savedParkingFragment;
         }
@@ -104,9 +119,14 @@ public class MainActivity extends AppCompatActivity {
         mBottomBar.setItems(R.menu.bottombar_menu);
     }
 
+    private Boolean getStateUpdateTokenFCM() {
+        SharedPreferences settings = getSharedPreferences(RegisterActivity.REDLEE, MODE_PRIVATE);
+        return settings.getBoolean(FirebaseInstanceIDService.UPDATE_TOKEN, false);
+    }
+
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         mBottomBar.onSaveInstanceState(outState);
     }
 
@@ -128,5 +148,32 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.placeHolder, fragment, fragmentTag);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private void updateTokenFCM(Boolean update) {
+        SharedPreferences settings = getSharedPreferences(RegisterActivity.REDLEE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(FirebaseInstanceIDService.UPDATE_TOKEN, update);
+        editor.apply();
+    }
+
+    private void registerToken(String email, String token) {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    Log.d(TAG, "response" + response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.d(TAG, "response: " + jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "Token Fallo!");
+                }
+            }
+        };
+
+        TokenRegister tokenRegister = new TokenRegister(email, token, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(tokenRegister);
     }
 }

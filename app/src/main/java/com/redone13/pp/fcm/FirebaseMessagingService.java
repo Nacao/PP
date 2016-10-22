@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.redone13.pp.MainActivity;
+import com.redone13.pp.R;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     private static final String TAG = FirebaseMessagingService.class.getSimpleName();
@@ -41,7 +42,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
                 .setSmallIcon(android.R.drawable.stat_notify_chat)
-                .setContentTitle("myTitle")
+                .setContentTitle(getResources().getText(R.string.app_name))
                 .setContentText(message)
                 .setContentIntent(pendingIntent);
 

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ReleaseParkingRequest extends StringRequest {
     //public static final String RELEASE_PARKING_REQUEST_URL = "http://10.127.127.1/parkplatz/db/ReleaseParkingRequest.php";
-    public static final String RELEASE_PARKING_REQUEST_URL = "http://redone13.net16.net/ParkingRequest.php";
+    public static final String RELEASE_PARKING_REQUEST_URL = "http://redone13.net16.net/ReleaseParkingRequest.php";
     private Map<String, String> params;
 
     public ReleaseParkingRequest(String email, Response.Listener<String> listener) {
